@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cqcn5wg13583"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Button" type="Button" parent="."]
+offset_right = 394.0
+offset_bottom = 239.0
+text = "PREsS ME"

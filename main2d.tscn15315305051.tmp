@@ -1,0 +1,668 @@
+[gd_scene load_steps=43 format=3 uid="uid://gvdgqlfpaxje"]
+
+[ext_resource type="Script" uid="uid://bjqsbd70er1qe" path="res://Main.gd" id="1_b6gu2"]
+[ext_resource type="PackedScene" uid="uid://dgpvvg5fx1qy1" path="res://enemy.tscn" id="2_j1s7q"]
+[ext_resource type="PackedScene" uid="uid://dppvvo3q1tndc" path="res://UI.tscn" id="2_vlfvj"]
+[ext_resource type="PackedScene" uid="uid://ur6edduxr3cu" path="res://tower.tscn" id="3_b68g4"]
+[ext_resource type="PackedScene" uid="uid://ccy61o285jymk" path="res://enemy2.tscn" id="3_dppk6"]
+[ext_resource type="AudioStream" uid="uid://d1mu7fxrieq0" path="res://Music/sb_indreams(chosic.com).mp3" id="4_1mh2o"]
+[ext_resource type="Script" uid="uid://w0grboeean7o" path="res://path_visualizer.gd" id="4_b68g4"]
+[ext_resource type="PackedScene" uid="uid://bjymuybljxcbq" path="res://tower2.tscn" id="4_hp2ex"]
+[ext_resource type="PackedScene" uid="uid://dppw6kol6eyq0" path="res://tower3.tscn" id="6_idgm1"]
+[ext_resource type="Script" uid="uid://bfohmocg3hhc" path="res://grid_manager.gd" id="6_t4rs4"]
+[ext_resource type="Texture2D" uid="uid://d4igdehppkajd" path="res://Asset2dSpace/neo_zero_tileset_02.png" id="8_bn7pe"]
+[ext_resource type="Script" uid="uid://youllwyrrqse" path="res://ui_tower.gd" id="12_idgm1"]
+[ext_resource type="Texture2D" uid="uid://bgf3pwto1famv" path="res://Asset2dSpace/spaceShips_001.png" id="13_rthos"]
+[ext_resource type="Texture2D" uid="uid://bdxoflli6xsaw" path="res://Asset2dSpace/spaceShips_006.png" id="14_3y7tg"]
+[ext_resource type="Texture2D" uid="uid://beujjs5be7vve" path="res://Asset2dSpace/spaceShips_009.png" id="15_ebxai"]
+[ext_resource type="Script" uid="uid://ckqxejc8n1j1l" path="res://fps.gd" id="16_3y7tg"]
+[ext_resource type="Script" uid="uid://06ksgdrjarnu" path="res://portal.gd" id="17_ebxai"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ntku"]
+texture = ExtResource("8_bn7pe")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+10:0/0 = 0
+11:0/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+14:2/0 = 0
+16:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+14:3/0 = 0
+15:3/0 = 0
+16:3/0 = 0
+1:4/0 = 0
+3:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+8:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+14:4/0 = 0
+15:4/0 = 0
+16:4/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+14:5/0 = 0
+15:5/0 = 0
+16:5/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+13:7/0 = 0
+14:7/0 = 0
+15:7/0 = 0
+16:7/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+3:8/0 = 0
+4:8/0 = 0
+6:8/0 = 0
+7:8/0 = 0
+12:8/0 = 0
+13:8/0 = 0
+14:8/0 = 0
+15:8/0 = 0
+16:8/0 = 0
+17:8/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+4:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+10:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+14:9/0 = 0
+15:9/0 = 0
+16:9/0 = 0
+17:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+4:10/0 = 0
+5:10/0 = 0
+6:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+9:10/0 = 0
+10:10/0 = 0
+12:10/0 = 0
+13:10/0 = 0
+14:10/0 = 0
+15:10/0 = 0
+16:10/0 = 0
+17:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+3:11/0 = 0
+4:11/0 = 0
+5:11/0 = 0
+6:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+12:11/0 = 0
+13:11/0 = 0
+14:11/0 = 0
+15:11/0 = 0
+16:11/0 = 0
+17:11/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_hp2ex"]
+sources/0 = SubResource("TileSetAtlasSource_2ntku")
+
+[sub_resource type="Curve2D" id="Curve2D_1icmw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 6, 158, 0, 0, 0, 0, 224, 162, 0, 0, 0, 0, 225, 289, 0, 0, 0, 0, 417, 288, 0, 0, 0, 0, 416, 96, 0, 0, 0, 0, 550, 96, 0, 0, 0, 0, 549, 290, 0, 0, 0, 0, 673, 290, 0, 0, 0, 0, 676, 155, 0, 0, 0, 0, 801, 159, 0, 0, 0, 0, 807, 289, 0, 0, 0, 0, 990, 288, 0, 0, 0, 0, 995, 99, 0, 0, 0, 0, 1194, 96)
+}
+point_count = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrts5"]
+bg_color = Color(0.101961, 0.101961, 0.180392, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0862745, 0.129412, 0.243137, 1)
+corner_radius_top_left = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rfjt"]
+bg_color = Color(0.0862745, 0.129412, 0.243137, 1)
+border_width_bottom = 4
+border_color = Color(0.290196, 0.290196, 0.415686, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vpaui"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6nk7"]
+bg_color = Color(0.176471, 0.164706, 0.290196, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.290196, 0.290196, 0.415686, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rthos"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ebxai"]
+bg_color = Color(0.117029, 0.108152, 0.202135, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rthos"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_og75d"]
+bg_color = Color(0.36141, 0.450795, 0.855979, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_8eoto"]
+font_size = 18
+font_color = Color(0.933333, 0.886275, 0.862745, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q47ii"]
+font_size = 18
+font_color = Color(1, 0.843137, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqvau"]
+font_size = 12
+font_color = Color(1, 0.419608, 0.419608, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6mh1q"]
+font_size = 12
+font_color = Color(0.305882, 0.803922, 0.768627, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lks6q"]
+font_size = 12
+font_color = Color(1, 0.901961, 0.427451, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1eq8k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_67gi7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ol53o"]
+bg_color = Color(0.10989, 0.101369, 0.191513, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67gi7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2gktw"]
+bg_color = Color(0.913725, 0.117647, 0.388235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3y7tg"]
+bg_color = Color(0.913725, 0.592157, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3y7tg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6858p"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.905882, 0.298039, 0.235294, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jb8yx"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.6, 0.203922, 0.882353, 0.219608)
+border_color = Color(0.905882, 0.298039, 0.235294, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Main" type="Node2D" node_paths=PackedStringArray("tilemap_node")]
+script = ExtResource("1_b6gu2")
+enemy_scenes = Array[PackedScene]([ExtResource("2_j1s7q"), ExtResource("3_dppk6")])
+enemy_spawn_weights = Array[float]([0.0])
+base_enemies_per_wave = 10
+enemy_increase_per_wave = 4
+wave_cooldown = 5.0
+tower_scenes = Array[PackedScene]([ExtResource("3_b68g4"), ExtResource("4_hp2ex"), ExtResource("6_idgm1")])
+tower_costs = Array[int]([25, 75, 50])
+tilemap_node = NodePath("TileMap")
+show_buildable_debug = true
+background_music = ExtResource("4_1mh2o")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(658.85, 371.595)
+rotation = -0.174533
+zoom = Vector2(0.96, 0.96)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -131.0
+offset_right = 1455.0
+offset_bottom = 736.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.113725, 0.0980392, 0.137255, 1)
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(4, 4)
+tile_set = SubResource("TileSet_hp2ex")
+format = 2
+layer_0/tile_data = PackedInt32Array(65554, 720896, 0, 327692, 458752, 0, 327688, 458752, 0, 327690, 458752, 0, 65546, 458752, 0, 7, 458752, 0, 327685, 458752, 0, 327683, 458752, 0, 65539, 458752, 0, 196622, 458752, 0, 196621, 458752, 0, 327694, 458752, 0, 327695, 458752, 0, 65548, 458752, 0, 131079, 655360, 805306371, 196619, 655360, 3)
+layer_1/name = "Layer1"
+layer_1/tile_data = PackedInt32Array(65554, 196608, 9, 196608, 655360, 1342177283, 196609, 655360, 1342177283, 196610, 655360, 1342177283, 262146, 720896, 3, 65536, 720896, 1342177283, 65537, 720896, 1342177283, 65538, 720896, 1342177283, 65539, 720896, 1342177283, 131076, 720896, 805306371, 196612, 720896, 805306371, 196613, 655360, 805306371, 131077, 655360, 805306371, 65541, 655360, 805306371, 6, 655360, 1610612739, 7, 655360, 1610612739, 8, 655360, 1610612739, 327683, 655360, 1342177283, 327684, 655360, 1342177283, 327685, 655360, 1342177283, 327686, 655360, 1342177283, 262151, 655360, 3, 196615, 655360, 3, 131079, 655360, 3, 65545, 655360, 3, 131081, 655360, 3, 196617, 655360, 3, 327688, 655360, 1342177283, 327690, 655360, 1342177283, 262155, 655360, 3, 196619, 655360, 805306371, 131088, 655360, 1342177283, 131089, 655360, 1342177283, 196621, 655360, 1610612739, 196622, 655360, 1610612739)
+layer_2/name = "Layer2"
+layer_2/tile_data = PackedInt32Array(196610, 720896, 3, 196612, 655360, 1610612739, 196613, 655360, 1610612739, 131079, 655360, 1342177283, 196617, 655360, 805306371, 131081, 655360, 805306371, 65546, 655360, 1610612739, 65547, 655360, 1610612739, 65548, 655360, 1610612739, 131085, 655360, 3, 196621, 655360, 3, 327689, 655360, 1342177283, 196619, 655360, 1342177283, 262155, 655360, 805306371, 327692, 655360, 1342177283, 327693, 655360, 1342177283, 327694, 655360, 1342177283, 327695, 655360, 1342177283, 262160, 655360, 3, 196624, 655360, 3, 131088, 655360, 3, 196622, 655360, 805306371, 131086, 655360, 805306371, 65550, 655360, 805306371, 15, 655360, 1610612739, 16, 655360, 1610612739, 17, 655360, 1610612739, 196615, 655360, 805306371, 262151, 655360, 805306371, 131072, 655360, 0, 131073, 655360, 0, 131074, 655360, 0, 131075, 655360, 0, 196611, 655360, 0, 262147, 655360, 0, 262148, 655360, 0, 262150, 655360, 0, 262149, 655360, 0, 196614, 655360, 0, 131078, 655360, 0, 65542, 655360, 0, 65543, 655360, 0, 65544, 655360, 0, 131080, 655360, 0, 196616, 655360, 0, 262152, 655360, 0, 262153, 655360, 0, 262154, 655360, 0, 196618, 655360, 0, 131082, 655360, 0, 131083, 655360, 0, 131084, 655360, 0, 196620, 655360, 0, 262156, 655360, 0, 262157, 655360, 0, 262158, 655360, 0, 262159, 655360, 0, 196623, 655360, 0, 131087, 655360, 0, 65551, 655360, 0, 65552, 655360, 0, 65553, 655360, 0)
+
+[node name="EnemyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_1icmw")
+
+[node name="PathLine" type="Line2D" parent="EnemyPath"]
+visible = false
+script = ExtResource("4_b68g4")
+
+[node name="UI" parent="." instance=ExtResource("2_vlfvj")]
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("6_t4rs4")
+
+[node name="UITower" type="Control" parent="."]
+visible = false
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 922.545
+offset_top = -4.0
+offset_right = 1322.54
+offset_bottom = 733.0
+script = ExtResource("12_idgm1")
+
+[node name="Background" type="Panel" parent="UITower"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xrts5")
+
+[node name="MainContainer" type="VBoxContainer" parent="UITower"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Header" type="Panel" parent="UITower/MainContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_1rfjt")
+
+[node name="Title" type="Label" parent="UITower/MainContainer/Header"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = -11.5
+offset_right = 201.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "SELECT TOWER"
+label_settings = SubResource("LabelSettings_vpaui")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TowerList" type="VBoxContainer" parent="UITower/MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+
+[node name="TowerCard1" type="Panel" parent="UITower/MainContainer/TowerList"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6nk7")
+
+[node name="Tower1Button" type="Button" parent="UITower/MainContainer/TowerList/TowerCard1"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rthos")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ebxai")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rthos")
+
+[node name="CardContent" type="HBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="IconContainer" type="Panel" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_og75d")
+
+[node name="TowerIcon1" type="TextureRect" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent/IconContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = 10.0
+offset_right = 11.75
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_rthos")
+expand_mode = 3
+stretch_mode = 5
+flip_v = true
+
+[node name="InfoContainer" type="VBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TowerName" type="Label" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Basic Canon"
+label_settings = SubResource("LabelSettings_8eoto")
+
+[node name="TowerPrice" type="Label" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent/InfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "$25"
+label_settings = SubResource("LabelSettings_q47ii")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent/InfoContainer"]
+layout_mode = 2
+
+[node name="DamageInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "DMG: 25"
+label_settings = SubResource("LabelSettings_bqvau")
+
+[node name="RangeInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "RANGE:100"
+label_settings = SubResource("LabelSettings_6mh1q")
+
+[node name="SpeedInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard1/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "ATTACK SPEED : 3"
+label_settings = SubResource("LabelSettings_lks6q")
+
+[node name="TowerCard3" type="Panel" parent="UITower/MainContainer/TowerList"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6nk7")
+
+[node name="Tower3Button" type="Button" parent="UITower/MainContainer/TowerList/TowerCard3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1eq8k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_67gi7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ol53o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_67gi7")
+
+[node name="CardContent" type="HBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="IconContainer" type="Panel" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_2gktw")
+
+[node name="TowerIcon1" type="TextureRect" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent/IconContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = 10.0
+offset_right = 11.75
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_ebxai")
+expand_mode = 3
+stretch_mode = 5
+flip_v = true
+
+[node name="InfoContainer" type="VBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TowerName" type="Label" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Machine Gun"
+label_settings = SubResource("LabelSettings_8eoto")
+
+[node name="TowerPrice" type="Label" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent/InfoContainer"]
+layout_mode = 2
+text = "$75"
+label_settings = SubResource("LabelSettings_q47ii")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent/InfoContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DamageInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "DMG: 10"
+label_settings = SubResource("LabelSettings_bqvau")
+
+[node name="RangeInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "RANGE:120"
+label_settings = SubResource("LabelSettings_6mh1q")
+
+[node name="SpeedInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard3/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "ATTACK SPEED : 10"
+label_settings = SubResource("LabelSettings_lks6q")
+
+[node name="TowerCard2" type="Panel" parent="UITower/MainContainer/TowerList"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6nk7")
+
+[node name="Tower2Button" type="Button" parent="UITower/MainContainer/TowerList/TowerCard2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1eq8k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_67gi7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ol53o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_67gi7")
+
+[node name="CardContent" type="HBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="IconContainer" type="Panel" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_3y7tg")
+
+[node name="TowerIcon1" type="TextureRect" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent/IconContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = 10.0
+offset_right = 11.75
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_3y7tg")
+expand_mode = 3
+stretch_mode = 5
+flip_v = true
+
+[node name="InfoContainer" type="VBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TowerName" type="Label" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Sniper"
+label_settings = SubResource("LabelSettings_8eoto")
+
+[node name="TowerPrice" type="Label" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer"]
+layout_mode = 2
+text = "$50"
+label_settings = SubResource("LabelSettings_q47ii")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DamageInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "DMG: 75"
+label_settings = SubResource("LabelSettings_bqvau")
+
+[node name="RangeInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "RANGE:300"
+label_settings = SubResource("LabelSettings_6mh1q")
+
+[node name="SpeedInfo" type="Label" parent="UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "ATTACK SPEED : 1"
+label_settings = SubResource("LabelSettings_lks6q")
+
+[node name="Cancel Button" type="Button" parent="UITower/MainContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.905882, 0.298039, 0.235294, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3y7tg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6858p")
+theme_override_styles/normal = SubResource("StyleBoxFlat_jb8yx")
+text = "✕ CANCEL"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 5.0
+offset_top = 684.0
+offset_right = 183.0
+offset_bottom = 719.0
+script = ExtResource("16_3y7tg")
+
+[node name="Portal" type="Node2D" parent="."]
+position = Vector2(3.27, 159.065)
+script = ExtResource("17_ebxai")
+
+[connection signal="pressed" from="UITower/MainContainer/TowerList/TowerCard1/Tower1Button" to="." method="_on_tower_1_button_pressed"]

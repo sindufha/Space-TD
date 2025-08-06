@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dppw6kol6eyq0"]
+
+[ext_resource type="Script" uid="uid://6y8ctml44xgl" path="res://Script/snipertower.gd" id="1_yufy7"]
+[ext_resource type="AudioStream" uid="uid://bhvke1umpikue" path="res://sfx/645681-soundslikewillem-laser-gun-sound-effect-2_sl2BZoWl.wav" id="2_yufy7"]
+[ext_resource type="Texture2D" uid="uid://bdxoflli6xsaw" path="res://Asset2dSpace/spaceShips_006.png" id="3_xy2rc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vedim"]
+size = Vector2(36, 45)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbe1c"]
+radius = 122.0
+
+[node name="Sniper" type="StaticBody2D"]
+script = ExtResource("1_yufy7")
+damage = 70
+fire_rate = 0.2
+range_radius = 500
+rotation_speed = 120.0
+shoot_sounds = Array[AudioStream]([ExtResource("2_yufy7")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vedim")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 0.5)
+rotation = -1.5708
+scale = Vector2(0.495, 0.495)
+texture = ExtResource("3_xy2rc")
+
+[node name="Range" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_jbe1c")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="Node2D"]
+
+[node name="ReladSound" type="AudioStreamPlayer2D" parent="Node2D"]
+
+[node name="TargetLockSound" type="AudioStreamPlayer2D" parent="Node2D"]

@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://6ve8rw1ah04"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_txbf5"]
+bg_color = Color(0.172549, 0.211765, 0.227451, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.125915, 0.157399, 0.169989, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_txbf5")

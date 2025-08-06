@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://ur6edduxr3cu"]
+
+[ext_resource type="Script" uid="uid://ksoue5bb3eyb" path="res://Script/tower.gd" id="1_k1sas"]
+[ext_resource type="AudioStream" uid="uid://gctlkwds626e" path="res://sfx/421704__bolkmar__sfx-laser-shoot-02.wav" id="2_stebd"]
+[ext_resource type="Texture2D" uid="uid://bgf3pwto1famv" path="res://Asset2dSpace/spaceShips_001.png" id="2_vedim"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vedim"]
+size = Vector2(36, 45)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jbe1c"]
+radius = 122.0
+
+[node name="Tower" type="StaticBody2D"]
+script = ExtResource("1_k1sas")
+damage = 20
+shoot_sounds = Array[AudioStream]([ExtResource("2_stebd")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vedim")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 0.5)
+rotation = -1.5708
+scale = Vector2(0.495, 0.495)
+texture = ExtResource("2_vedim")
+
+[node name="Range" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource("CircleShape2D_jbe1c")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="Node2D"]
+
+[node name="ReladSound" type="AudioStreamPlayer2D" parent="Node2D"]
+
+[node name="TargetLockSound" type="AudioStreamPlayer2D" parent="Node2D"]

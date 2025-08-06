@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://dyhpmmfol2kbu"]
+
+[ext_resource type="Script" uid="uid://cosu3fabcdv2j" path="res://Script/ui.gd" id="1_v2lfg"]
+[ext_resource type="Texture2D" uid="uid://ie12t5og7730" path="res://asset/ui/icons8-stack-of-coins-48.png" id="2_37rai"]
+[ext_resource type="Texture2D" uid="uid://blfwa15bw3c7x" path="res://asset/ui/Buttons/Square-Medium/Pause/Default.png" id="2_mx0kw"]
+[ext_resource type="Texture2D" uid="uid://cpypl3o3fpk5f" path="res://asset/ui/icons8-heart-64.png" id="3_0qrqu"]
+[ext_resource type="FontFile" uid="uid://csgwfgj8ogqqi" path="res://asset/fonts/JosefinSans-Bold.ttf" id="3_mx0kw"]
+[ext_resource type="Texture2D" uid="uid://ib8ohk1x2fgn" path="res://asset/ui/Buttons/Square-Medium/Pause/Hover.png" id="6_w4oxd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mx0kw"]
+font = ExtResource("3_mx0kw")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_w4oxd"]
+font = ExtResource("3_mx0kw")
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_0qrqu"]
+font = ExtResource("3_mx0kw")
+font_size = 30
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v2lfg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 196.635
+offset_right = 607.635
+offset_bottom = 143.0
+theme_override_constants/separation = 20
+
+[node name="MoneyContainer" type="HBoxContainer" parent="UI/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IconGold" type="TextureRect" parent="UI/HBoxContainer/MoneyContainer"]
+layout_mode = 2
+texture = ExtResource("2_37rai")
+stretch_mode = 3
+
+[node name="MoneyLabel" type="Label" parent="UI/HBoxContainer/MoneyContainer"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_mx0kw")
+
+[node name="HealthContainer" type="HBoxContainer" parent="UI/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="IconHealth" type="TextureRect" parent="UI/HBoxContainer/HealthContainer"]
+layout_mode = 2
+texture = ExtResource("3_0qrqu")
+stretch_mode = 3
+
+[node name="HealthLabel" type="Label" parent="UI/HBoxContainer/HealthContainer"]
+layout_mode = 2
+text = "100"
+label_settings = SubResource("LabelSettings_w4oxd")
+
+[node name="WaveContainer" type="HBoxContainer" parent="UI/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="iconwave" type="TextureRect" parent="UI/HBoxContainer/WaveContainer"]
+layout_mode = 2
+
+[node name="WaveLabel" type="Label" parent="UI/HBoxContainer/WaveContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_0qrqu")
+vertical_alignment = 2
+
+[node name="PausedButton" type="TextureButton" parent="UI"]
+layout_mode = 2
+offset_left = 17.0
+offset_top = 29.0
+offset_right = 105.0
+offset_bottom = 117.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_mx0kw")
+texture_hover = ExtResource("6_w4oxd")

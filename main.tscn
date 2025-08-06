@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlom0x8o4f1d6"]
+
+[ext_resource type="Script" uid="uid://biw77nnm3it7d" path="res://Script/camera_3d.gd" id="1_0xm2m"]
+[ext_resource type="MeshLibrary" uid="uid://bntgyaaxivu32" path="res://myres.tres" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://d2tt0jlblbb1r" path="res://addons/zylann.hterrain/hterrain.gd" id="3_lquwl"]
+[ext_resource type="Resource" uid="uid://bxc4sgddbpohj" path="res://Terrain/data.hterrain" id="4_7mycd"]
+[ext_resource type="Script" uid="uid://baqkrncwkdhfy" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="5_272bh"]
+
+[sub_resource type="Resource" id="Resource_5vw27"]
+script = ExtResource("5_272bh")
+mode = 0
+textures = [[], []]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.0881117, 0.913493, -0.397198, -8.38992e-09, 0.398749, 0.91706, 0.996111, -0.0808038, 0.0351345, -175.289, 250.691, 28.3207)
+size = 89.285
+script = ExtResource("1_0xm2m")
+camera_height = 300.0
+camera_distance = 50.0
+pan_speed = 100.0
+boundary_max = Vector2(200, 200)
+
+[node name="Terrain" type="StaticBody3D" parent="."]
+
+[node name="GridMap" type="GridMap" parent="Terrain"]
+mesh_library = ExtResource("1_ig7tw")
+data = {
+"cells": PackedInt32Array(11, 65535, 131072, 10, 65535, 131072, 9, 65535, 131072, 8, 65535, 131072, 7, 65535, 131072, 6, 65535, 131072, 5, 65535, 131072, 4, 65535, 131072, 3, 65535, 131072, 2, 65535, 131072, 1, 65535, 131072, 11, 65533, 131072, 10, 65533, 131072, 9, 65533, 131072, 8, 65533, 131072, 7, 65533, 131072, 6, 65533, 131072, 5, 65533, 131072, 4, 65533, 131072, 3, 65533, 131072, 2, 65533, 131072, 1, 65533, 131072, 0, 65535, 131072, 0, 0, 131072, 0, 1, 131072, 65535, 1, 131072, 65535, 2, 131072, 65534, 2, 131072, 65533, 2, 131072, 65532, 2, 131072, 65531, 2, 131072, 65530, 2, 131072, 0, 65533, 131072, 65535, 65533, 131072, 65534, 65533, 131072, 65534, 65534, 131072, 65534, 65535, 131072, 65533, 65535, 131072, 65533, 0, 131072, 65532, 0, 131072, 65531, 0, 131072, 65530, 0, 131072, 65529, 0, 1310720, 65529, 2, 1310720, 65528, 2, 1310720, 65527, 2, 1310720, 65526, 2, 1310720, 65525, 2, 1310720, 65524, 2, 1310720, 65523, 2, 1310720, 65522, 2, 1310720, 65521, 2, 1310720, 65520, 2, 1310720, 65528, 0, 1310720, 65527, 0, 1310720, 65526, 0, 1310720, 65525, 0, 1310720, 65524, 0, 1310720, 65523, 0, 1310720, 65522, 0, 1310720, 65521, 0, 1310720, 65520, 0, 1310720, 12, 65533, 131072, 12, 65535, 131072, 13, 65535, 131072, 14, 65535, 131072, 15, 65535, 131072, 16, 65535, 131072, 17, 65535, 131072, 18, 65535, 131072, 19, 65535, 131072, 20, 65535, 131072, 13, 65533, 131072, 14, 65533, 131072, 15, 65533, 131072, 16, 65533, 131072, 17, 65533, 131072, 18, 65533, 131072, 19, 65533, 131072, 20, 65533, 131072, 21, 65533, 131072, 22, 65535, 131072, 23, 65535, 131072, 21, 65535, 131072, 22, 65533, 131072, 23, 65533, 131072, 24, 65533, 131072, 25, 65533, 1310720, 26, 65533, 1310720, 27, 65533, 1310720, 24, 65535, 1310720, 25, 65535, 1310720, 26, 65535, 1310720, 27, 65535, 1310720, 27, 0, 1179649, 26, 0, 1179649, 25, 0, 1179649, 24, 0, 1179649, 23, 0, 1179649, 22, 0, 1179649, 27, 65532, 1179649, 26, 65532, 1179649, 25, 65532, 1179649, 24, 65532, 1179649, 23, 65532, 1179649, 22, 65532, 1179649, 20, 0, 1179649, 21, 0, 1179649, 19, 0, 1179649, 18, 0, 1179649, 17, 0, 1179649, 16, 0, 1179649, 15, 0, 1179649, 21, 65532, 1179649, 20, 65532, 1179649, 19, 65532, 1179649, 18, 65532, 1179649, 17, 65532, 1179649, 16, 65532, 1179649, 15, 65532, 1179649)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.825153, 0.564909, 0, 0.31374, -0.458275, 0.831596, 0.469776, -0.686194, -0.555382, 0, 74.6791, 0)
+light_energy = 0.5
+
+[node name="HTerrain" type="Node3D" parent="."]
+script = ExtResource("3_lquwl")
+centered = true
+_terrain_data = ExtResource("4_7mycd")
+chunk_size = 32
+collision_enabled = true
+collision_layer = 1
+collision_mask = 1
+shader_type = "Classic4Lite"
+custom_shader = null
+custom_globalmap_shader = null
+texture_set = SubResource("Resource_5vw27")
+render_layers = 1
+cast_shadow = 1
+shader_params/u_ground_uv_scale = 20
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = null
+shader_params/u_tile_reduction = null
+metadata/_custom_type_script = "uid://d2tt0jlblbb1r"

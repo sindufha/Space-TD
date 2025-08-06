@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TowerData" load_steps=2 format=3 uid="uid://x75w0hfylc6k"]
+
+[ext_resource type="Script" uid="uid://cjhr4xlj1lx11" path="res://Script/TowerData.gd" id="1_nc3br"]
+
+[resource]
+script = ExtResource("1_nc3br")
+name = "Basic Tower"
+cost = 50
+scene_path = ""
+metadata/_custom_type_script = "uid://cjhr4xlj1lx11"

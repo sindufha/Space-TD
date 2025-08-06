@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv5tyq11qlxge"]
+
+[ext_resource type="Script" uid="uid://dms8lxki820re" path="res://Script/tower_ui.gd" id="1_v87hk"]
+
+[node name="TowerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_v87hk")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -4.0
+offset_right = 497.0
+offset_bottom = 262.0
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 24.0
+offset_right = 487.0
+offset_bottom = 264.0
+
+[node name="Tower1Button" type="Button" parent="Background/ButtonsContainer"]
+layout_mode = 2
+
+[node name="Tower2Button" type="Button" parent="Background/ButtonsContainer"]
+layout_mode = 2
+
+[node name="CancelButton" type="Button" parent="Background"]
+layout_mode = 2
+offset_left = 4.0
+offset_top = 131.0
+offset_right = 352.0
+offset_bottom = 187.0
+text = "Cancel"
+
+[node name="SelectTowerLabel" type="Label" parent="Background"]
+layout_mode = 0
+offset_right = 167.0
+offset_bottom = 23.0
+text = "Select Tower to Build:"

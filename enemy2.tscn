@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccy61o285jymk"]
+
+[ext_resource type="Script" uid="uid://b7ncklsgjyvhr" path="res://Script/enemy.gd" id="1_jugo2"]
+[ext_resource type="Texture2D" uid="uid://1fvvlkeaa1cn" path="res://asseets/kenney_space-shooter-redux/PNG/Enemies/enemyBlue5.png" id="2_jugo2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iifgy"]
+radius = 47.0956
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4gyqm"]
+bg_color = Color(0.662351, 0.66235, 0, 1)
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_jugo2")
+max_health = 50
+speed = 100
+reward = 12
+fragment_count = 10
+explosion_color = Color(0.622773, 0.000314871, 0.630562, 1)
+flash_color = Color(1, 1, 1, 1)
+particle_color = Color(1, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_iifgy")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5708
+scale = Vector2(0.615, 0.615)
+texture = ExtResource("2_jugo2")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 29.0
+offset_bottom = -30.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_4gyqm")
+show_percentage = false

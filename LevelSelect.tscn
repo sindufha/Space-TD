@@ -1,0 +1,351 @@
+[gd_scene load_steps=20 format=3 uid="uid://bbmkg8mjs34hi"]
+
+[ext_resource type="FontFile" uid="uid://csgwfgj8ogqqi" path="res://asset/fonts/JosefinSans-Bold.ttf" id="1_0bmyu"]
+[ext_resource type="Script" uid="uid://06bsmc08jyu2" path="res://level_select.gd" id="1_nb57j"]
+[ext_resource type="FontFile" uid="uid://q30ectdbwpp8" path="res://asset/fonts/JosefinSans-Regular.ttf" id="2_nb57j"]
+[ext_resource type="Texture2D" uid="uid://bd881we33d074" path="res://asset/ui/Active.png" id="3_gyrbw"]
+[ext_resource type="Texture2D" uid="uid://7hetmrurhw7d" path="res://asset/ui/Unactive.png" id="4_tvwvf"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_cgbbg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sf6f5"]
+font = ExtResource("1_0bmyu")
+font_size = 48
+font_color = Color(0, 1, 1, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cgbbg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ardn0"]
+bg_color = Color(0.164706, 0.164706, 0.290196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q3t17"]
+bg_color = Color(0.227451, 0.227451, 0.352941, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bmyu"]
+bg_color = Color(0.101961, 0.101961, 0.227451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_w5tpn"]
+font_size = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sf6f5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ardn0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3t17"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0bmyu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nb57j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nb57j"]
+bg_color = Color(0.290196, 0.164706, 0.164706, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.266667, 0.266667, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gyrbw"]
+bg_color = Color(0.227451, 0.101961, 0.101961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.448447, 0.415876, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="LevelSelectScene" type="Node2D"]
+script = ExtResource("1_nb57j")
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color(0.0392157, 0.0392157, 0.180392, 1)
+offset_right = 1280.0
+offset_bottom = 717.0
+texture = SubResource("CanvasTexture_cgbbg")
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.196078)
+
+[node name="UIContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="UIContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="TitleLabel" type="Label" parent="UIContainer/MainVBox"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "SELECT LEVEL"
+label_settings = SubResource("LabelSettings_sf6f5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GridCenterContainer" type="CenterContainer" parent="UIContainer/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LevelGrid" type="GridContainer" parent="UIContainer/MainVBox/GridCenterContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 5
+
+[node name="level1button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/NumberContainer"]
+layout_mode = 2
+text = "1"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/StarsContainer"]
+self_modulate = Color(1, 0.843137, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("3_gyrbw")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="level2button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sf6f5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "2"
+
+[node name="level3button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "3"
+
+[node name="level4button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "4"
+
+[node name="level5button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "5"
+
+[node name="level6button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "6"
+
+[node name="level7button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "7"
+
+[node name="level8button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "8"
+
+[node name="level9button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "9"
+
+[node name="level10button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 36
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+text = "10"
+
+[node name="BottomContainer" type="HBoxContainer" parent="UIContainer/MainVBox"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+
+[node name="LeftSpacer" type="Control" parent="UIContainer/MainVBox/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BackButton" type="Button" parent="UIContainer/MainVBox/BottomContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(1, 0.266667, 0.266667, 1)
+theme_override_fonts/font = ExtResource("2_nb57j")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/focus = SubResource("StyleBoxEmpty_q3t17")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_0bmyu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_nb57j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_nb57j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_gyrbw")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gyrbw")
+text = "← BACK"
+
+[node name="RightSpacer" type="Control" parent="UIContainer/MainVBox/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/BottomContainer/BackButton" to="." method="_on_back_button_pressed"]
