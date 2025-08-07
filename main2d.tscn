@@ -1388,6 +1388,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_08kyo")
 
 [node name="PausedTitle" type="Label" parent="PausedUI/Panel"]
@@ -1407,6 +1408,7 @@ offset_left = 477.0
 offset_top = 246.0
 offset_right = 868.0
 offset_bottom = 537.0
+mouse_filter = 2
 theme_override_constants/separation = 10
 alignment = 1
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjymuybljxcbq"]
+[gd_scene load_steps=5 format=3 uid="uid://whyalvv87syi"]
 
-[ext_resource type="Script" uid="uid://becinpaev3bt1" path="res://Script/tower2.gd" id="1_gvcb1"]
-[ext_resource type="AudioStream" uid="uid://gctlkwds626e" path="res://sfx/421704__bolkmar__sfx-laser-shoot-02.wav" id="2_qs6w1"]
-[ext_resource type="Texture2D" uid="uid://beujjs5be7vve" path="res://Asset2dSpace/spaceShips_009.png" id="3_gvcb1"]
+[ext_resource type="Script" uid="uid://cx0vsje33w017" path="res://arc_tower.gd" id="1_mk0ij"]
+[ext_resource type="Texture2D" uid="uid://dgv28yp6pprhr" path="res://Asset2dSpace/spaceShips_003.png" id="3_cxj30"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vedim"]
 size = Vector2(36, 45)
@@ -10,11 +9,12 @@ size = Vector2(36, 45)
 [sub_resource type="CircleShape2D" id="CircleShape2D_jbe1c"]
 radius = 122.0
 
-[node name="Tower" type="StaticBody2D"]
-script = ExtResource("1_gvcb1")
-fire_rate = 5
+[node name="ArcTower" type="StaticBody2D"]
+script = ExtResource("1_mk0ij")
+damage = 20
 range_radius = 200
-shoot_sounds = Array[AudioStream]([ExtResource("2_qs6w1")])
+projectile_speed = 400.0
+chain_range = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -24,7 +24,7 @@ shape = SubResource("RectangleShape2D_vedim")
 position = Vector2(0, 0.5)
 rotation = -1.5708
 scale = Vector2(0.495, 0.495)
-texture = ExtResource("3_gvcb1")
+texture = ExtResource("3_cxj30")
 
 [node name="Range" type="Area2D" parent="."]
 collision_layer = 4

@@ -18,11 +18,15 @@ var path_follow: PathFollow2D
 var has_reached_end = false  # Tambah flag ini
 var is_dying = false  # Flag untuk mencegah double death
 
+# Helper function untuk membuat tween yang tidak terpengaruh pause
+func create_pause_resistant_tween() -> Tween:
+	var tween = create_tween()
+	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)  # Menggunakan physics process
+	return tween
 
 func _ready():
 	current_health = max_health
 	update_health_bar()
-
 
 func _physics_process(delta):
 	if path_follow and not has_reached_end and not is_dying:
@@ -33,7 +37,6 @@ func _physics_process(delta):
 		if path_follow.progress_ratio >= 0.98:  # 98% sudah dianggap sampai
 			print("Enemy reached end at progress: ", path_follow.progress_ratio)
 			reach_end()
-
 
 func take_damage(damage):
 	if is_dying or has_reached_end:
@@ -48,20 +51,23 @@ func take_damage(damage):
 	if current_health <= 0:
 		die()
 
-
 func create_damage_flash():
 	# Flash merah saat terkena damage
 	var flash = ColorRect.new()
 	get_tree().current_scene.add_child(flash)
+	flash.process_mode = Node.PROCESS_MODE_ALWAYS  # Agar tetap berjalan saat pause
 	flash.global_position = global_position - Vector2(15, 15)
 	flash.size = Vector2(30, 30)
 	flash.color = Color(1.0, 0.3, 0.3, 0.6)
 	
-	var tween = create_tween()
+	var tween = create_pause_resistant_tween()
 	tween.set_parallel(true)
 	tween.tween_property(flash, "modulate:a", 0.0, 0.2)
-	tween.tween_callback(flash.queue_free).set_delay(0.2)
-
+	# FIX: Gunakan Timer instead of tween_callback untuk cleanup
+	create_safe_timer(0.2, func(): 
+		if is_instance_valid(flash):
+			flash.queue_free()
+	)
 
 func update_health_bar():
 	if has_node("ProgressBar"):
@@ -70,7 +76,6 @@ func update_health_bar():
 		progress_bar.visible = false
 	else:
 		progress_bar.visible = true
-
 
 func die():
 	if is_dying or has_reached_end:
@@ -91,9 +96,11 @@ func die():
 	# Sembunyikan enemy asli tapi jangan langsung hapus
 	modulate.a = 0.0
 	
-	# Hapus setelah efek selesai
-	await get_tree().create_timer(2.0).timeout
-	queue_free()
+	# FIX: Gunakan safe timer untuk cleanup
+	create_safe_timer(2.0, func(): 
+		if is_instance_valid(self):
+			queue_free()
+	)
 
 func disable_enemy_detection():
 	# Disable collision detection
@@ -118,24 +125,36 @@ func create_death_explosion():
 	# Explosion ring utama - gunakan custom color
 	var explosion = create_circle_shape(Vector2.ZERO, 15, explosion_color)
 	get_tree().current_scene.add_child(explosion)
+	explosion.process_mode = Node.PROCESS_MODE_ALWAYS  # Agar tetap berjalan saat pause
 	explosion.global_position = global_position
 	
-	var exp_tween = create_tween()
+	var exp_tween = create_pause_resistant_tween()
 	exp_tween.set_parallel(true)
 	exp_tween.tween_property(explosion, "scale", Vector2(4.0, 4.0), 0.4)
 	exp_tween.tween_property(explosion, "modulate:a", 0.0, 0.4)
-	exp_tween.tween_callback(explosion.queue_free).set_delay(0.4)
+	
+	# FIX: Gunakan safe timer untuk cleanup
+	create_safe_timer(0.4, func(): 
+		if is_instance_valid(explosion):
+			explosion.queue_free()
+	)
 	
 	# Inner explosion flash - gunakan custom color
 	var flash = create_circle_shape(Vector2.ZERO, 10, flash_color)
 	get_tree().current_scene.add_child(flash)
+	flash.process_mode = Node.PROCESS_MODE_ALWAYS  # Agar tetap berjalan saat pause
 	flash.global_position = global_position
 	
-	var flash_tween = create_tween()
+	var flash_tween = create_pause_resistant_tween()
 	flash_tween.set_parallel(true)
 	flash_tween.tween_property(flash, "scale", Vector2(3.0, 3.0), 0.25)
 	flash_tween.tween_property(flash, "modulate:a", 0.0, 0.25)
-	flash_tween.tween_callback(flash.queue_free).set_delay(0.25)
+	
+	# FIX: Gunakan safe timer untuk cleanup
+	create_safe_timer(0.25, func(): 
+		if is_instance_valid(flash):
+			flash.queue_free()
+	)
 
 func create_fragments():
 	# Buat kepingan-kepingan yang beterbangan
@@ -146,6 +165,7 @@ func create_single_fragment(index: int):
 	# Buat fragment dengan bentuk acak
 	var fragment = Node2D.new()
 	get_tree().current_scene.add_child(fragment)
+	fragment.process_mode = Node.PROCESS_MODE_ALWAYS  # Agar tetap berjalan saat pause
 	fragment.global_position = global_position
 	
 	# Buat bentuk fragment (persegi panjang kecil atau segitiga)
@@ -168,50 +188,60 @@ func create_single_fragment(index: int):
 	var distance = randf_range(60, 120)
 	var rotation_speed = randf_range(-720, 720)  # Degrees per second
 	
-	# Animasi fragment terbang
-	var tween = create_tween()
-	tween.set_parallel(true)
-	
-	# Movement dengan parabolic path - FIXED VERSION
+	# PENTING: Buat movement dan rotation tween yang terpisah
 	var start_pos = global_position
 	var end_pos = start_pos + direction * distance
-	var gravity_fall = Vector2(0, 40)  # Gravity effect
+	var gravity_fall = Vector2(0, 40)
 	
-	# Buat simple parabolic movement tanpa tween_method yang bermasalah
+	# Movement dengan parabolic path menggunakan pause resistant tween
 	create_parabolic_movement(fragment, start_pos, end_pos, gravity_fall, 1.5)
 	
+	# Buat tween terpisah untuk rotation, fade, dan scale
+	var visual_tween = create_pause_resistant_tween()
+	visual_tween.set_parallel(true)
+	
 	# Rotation
-	tween.tween_property(fragment, "rotation_degrees", rotation_speed, 1.5)
-	
+	visual_tween.tween_property(fragment, "rotation_degrees", rotation_speed, 1.5)
 	# Fade out
-	tween.tween_property(fragment, "modulate:a", 0.0, 1.5)
-	
+	visual_tween.tween_property(fragment, "modulate:a", 0.0, 1.5)
 	# Scale down
-	tween.tween_property(fragment, "scale", Vector2(0.3, 0.3), 1.5)
+	visual_tween.tween_property(fragment, "scale", Vector2(0.3, 0.3), 1.5)
 	
-	# Cleanup
-	tween.tween_callback(fragment.queue_free).set_delay(1.5)
+	# FIX: Gunakan safe timer untuk cleanup
+	create_safe_timer(1.5, func(): 
+		if is_instance_valid(fragment):
+			fragment.queue_free()
+	)
 
-# FIXED: Buat parabolic movement dengan approach yang lebih sederhana
+# FIX: Simplified parabolic movement tanpa lambda yang bermasalah
 func create_parabolic_movement(fragment: Node2D, start_pos: Vector2, end_pos: Vector2, gravity: Vector2, duration: float):
-	# Gunakan simple tween dengan custom interpolation
-	var movement_tween = create_tween()
-	
-	# SAFETY: Set tween properties to prevent infinite loop
-	movement_tween.set_loops(1)  # Explicitly set to run only once
+	# Gunakan tween property dengan custom method
+	var movement_tween = create_pause_resistant_tween()
 	movement_tween.set_parallel(false)
 	
-	# Buat callable untuk movement update yang tidak menggunakan bind bermasalah
-	var update_func = func(progress: float):
-		if is_instance_valid(fragment):
-			# Simple parabolic calculation
-			var current_pos = start_pos.lerp(end_pos, progress)
-			# Add parabolic curve (peak di tengah)
-			var curve_height = sin(progress * PI) * -30  # Negative untuk naik
-			var gravity_effect = gravity * progress * progress  # Quadratic fall
-			fragment.global_position = current_pos + Vector2(0, curve_height) + gravity_effect
+	# Store data di fragment untuk diakses oleh method
+	fragment.set_meta("start_pos", start_pos)
+	fragment.set_meta("end_pos", end_pos)
+	fragment.set_meta("gravity", gravity)
 	
-	movement_tween.tween_method(update_func, 0.0, 1.0, duration)
+	# Gunakan tween_method dengan method call instead of lambda
+	movement_tween.tween_method(_update_fragment_position.bind(fragment), 0.0, 1.0, duration)
+
+# FIX: Method terpisah untuk update position fragment
+func _update_fragment_position(fragment: Node2D, progress: float):
+	if not is_instance_valid(fragment):
+		return
+		
+	var start_pos = fragment.get_meta("start_pos", Vector2.ZERO)
+	var end_pos = fragment.get_meta("end_pos", Vector2.ZERO)
+	var gravity = fragment.get_meta("gravity", Vector2.ZERO)
+	
+	# Simple parabolic calculation
+	var current_pos = start_pos.lerp(end_pos, progress)
+	# Add parabolic curve (peak di tengah)
+	var curve_height = sin(progress * PI) * -30  # Negative untuk naik
+	var gravity_effect = gravity * progress * progress  # Quadratic fall
+	fragment.global_position = current_pos + Vector2(0, curve_height) + gravity_effect
 
 func create_rectangle_fragment() -> Polygon2D:
 	var rect = Polygon2D.new()
@@ -275,18 +305,25 @@ func create_death_particles():
 func create_death_particle():
 	var particle = create_circle_shape(Vector2.ZERO, randf_range(1, 3), particle_color)
 	get_tree().current_scene.add_child(particle)
+	particle.process_mode = Node.PROCESS_MODE_ALWAYS  # Agar tetap berjalan saat pause
 	particle.global_position = global_position + Vector2(randf_range(-10, 10), randf_range(-10, 10))
 	
 	var direction = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	var distance = randf_range(40, 80)
 	var end_pos = particle.global_position + direction * distance
+	var duration = randf_range(0.8, 1.5)
 	
-	var tween = create_tween()
+	var tween = create_pause_resistant_tween()
 	tween.set_parallel(true)
-	tween.tween_property(particle, "global_position", end_pos, randf_range(0.8, 1.5))
-	tween.tween_property(particle, "modulate:a", 0.0, randf_range(0.8, 1.5))
-	tween.tween_property(particle, "scale", Vector2(0.2, 0.2), randf_range(0.8, 1.5))
-	tween.tween_callback(particle.queue_free).set_delay(1.5)
+	tween.tween_property(particle, "global_position", end_pos, duration)
+	tween.tween_property(particle, "modulate:a", 0.0, duration)
+	tween.tween_property(particle, "scale", Vector2(0.2, 0.2), duration)
+	
+	# FIX: Gunakan safe timer untuk cleanup
+	create_safe_timer(duration, func(): 
+		if is_instance_valid(particle):
+			particle.queue_free()
+	)
 
 func create_circle_shape(pos: Vector2, radius: float, color: Color) -> Polygon2D:
 	# Buat shape circle menggunakan Polygon2D
@@ -304,6 +341,23 @@ func create_circle_shape(pos: Vector2, radius: float, color: Color) -> Polygon2D
 	circle.polygon = vertices
 	return circle
 
+# FIX: Ganti backup cleanup dengan safe timer function
+func create_safe_timer(delay: float, callback: Callable):
+	var timer = Timer.new()
+	get_tree().current_scene.add_child(timer)
+	timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	timer.wait_time = delay
+	timer.one_shot = true
+	
+	# FIX: Gunakan signal connection yang lebih aman
+	var cleanup_func = func():
+		callback.call()
+		if is_instance_valid(timer):
+			timer.queue_free()
+	
+	timer.timeout.connect(cleanup_func, CONNECT_ONE_SHOT)
+	timer.start()
+
 func reach_end():
 	if has_reached_end or is_dying:  # Prevent double call
 		return
@@ -318,19 +372,30 @@ func reach_end():
 	# Efek sederhana untuk reach end (tidak hancur berkeping-keping)
 	create_reach_end_effect()
 	
-	# Fade out simple
-	var tween = create_tween()
+	# Fade out simple - gunakan pause resistant tween
+	var tween = create_pause_resistant_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
-	tween.tween_callback(queue_free).set_delay(0.5)
+	
+	# FIX: Gunakan safe timer untuk cleanup
+	create_safe_timer(0.5, func(): 
+		if is_instance_valid(self):
+			queue_free()
+	)
 
 func create_reach_end_effect():
 	# Efek sederhana - hanya flash hijau dan fade
 	var flash = create_circle_shape(Vector2.ZERO, 20, Color(0.2, 1.0, 0.3, 0.6))
 	get_tree().current_scene.add_child(flash)
+	flash.process_mode = Node.PROCESS_MODE_ALWAYS  # Agar tetap berjalan saat pause
 	flash.global_position = global_position
 	
-	var tween = create_tween()
+	var tween = create_pause_resistant_tween()
 	tween.set_parallel(true)
 	tween.tween_property(flash, "scale", Vector2(2.0, 2.0), 0.3)
 	tween.tween_property(flash, "modulate:a", 0.0, 0.3)
-	tween.tween_callback(flash.queue_free).set_delay(0.3)
+	
+	# FIX: Gunakan safe timer untuk cleanup
+	create_safe_timer(0.3, func(): 
+		if is_instance_valid(flash):
+			flash.queue_free()
+	)

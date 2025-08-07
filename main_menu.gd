@@ -24,3 +24,7 @@ func _on_x_about_button_pressed() -> void:
 
 func _on_x_settings_button_pressed() -> void:
 	setting_panel.visible=false
+
+
+func _on_Main_menu_exit_button_pressed() -> void:
+	get_tree().quit(0)

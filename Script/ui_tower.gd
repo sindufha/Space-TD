@@ -9,6 +9,8 @@ signal tower_selection_cancelled
 @onready var button2: Button = $MainContainer/TowerList/TowerCard3/Tower3Button
 @onready var button3: Button = $MainContainer/TowerList/TowerCard2/Tower2Button
 
+
+
 var main_scene: Node2D
 var tower_costs: Array[int] = []
 var tower_names: Array[String] = []

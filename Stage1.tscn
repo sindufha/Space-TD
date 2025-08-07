@@ -1,11 +1,13 @@
-[gd_scene load_steps=80 format=3 uid="uid://b8kl57lfbl2my"]
+[gd_scene load_steps=90 format=3 uid="uid://b8kl57lfbl2my"]
 
 [ext_resource type="Script" uid="uid://cebuut2id85bk" path="res://Script/stage1.gd" id="1_qa7b8"]
 [ext_resource type="PackedScene" uid="uid://dgpvvg5fx1qy1" path="res://enemy.tscn" id="2_t4vir"]
 [ext_resource type="PackedScene" uid="uid://ur6edduxr3cu" path="res://tower.tscn" id="4_f1ktl"]
 [ext_resource type="PackedScene" uid="uid://bjymuybljxcbq" path="res://tower2.tscn" id="5_76fgo"]
+[ext_resource type="PackedScene" uid="uid://whyalvv87syi" path="res://arcTower.tscn" id="6_4sd3f"]
 [ext_resource type="PackedScene" uid="uid://dppw6kol6eyq0" path="res://tower3.tscn" id="6_fshpd"]
 [ext_resource type="AudioStream" uid="uid://d1mu7fxrieq0" path="res://Music/sb_indreams(chosic.com).mp3" id="7_8y57m"]
+[ext_resource type="PackedScene" uid="uid://w07tj1888ypj" path="res://LaserTower.tscn" id="7_f1ktl"]
 [ext_resource type="Script" uid="uid://riihlof6ex0o" path="res://Script/camera_2d.gd" id="8_wvv04"]
 [ext_resource type="Texture2D" uid="uid://d4igdehppkajd" path="res://Asset2dSpace/neo_zero_tileset_02.png" id="9_5ty5u"]
 [ext_resource type="Texture2D" uid="uid://sse0gvoe8r77" path="res://asseets/spaceBuilding_017.png" id="10_7rl1s"]
@@ -27,7 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://beujjs5be7vve" path="res://Asset2dSpace/spaceShips_009.png" id="26_8frv6"]
 [ext_resource type="Texture2D" uid="uid://bdxoflli6xsaw" path="res://Asset2dSpace/spaceShips_006.png" id="27_ruu8t"]
 [ext_resource type="Script" uid="uid://ckqxejc8n1j1l" path="res://Script/fps.gd" id="28_a27a8"]
+[ext_resource type="Texture2D" uid="uid://dgv28yp6pprhr" path="res://Asset2dSpace/spaceShips_003.png" id="28_t4vir"]
 [ext_resource type="PackedScene" uid="uid://borpq6s5l3ug0" path="res://Portal.tscn" id="29_lnh7p"]
+[ext_resource type="Texture2D" uid="uid://bksksebxamh2h" path="res://Asset2dSpace/spaceShips_008.png" id="30_76fgo"]
 [ext_resource type="PackedScene" uid="uid://6ve8rw1ah04" path="res://Towerbox.tscn" id="30_svqr1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ntku"]
@@ -579,6 +583,9 @@ font = ExtResource("17_nalsi")
 font_size = 13
 font_color = Color(1, 0.901961, 0.427451, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_76fgo"]
+font = ExtResource("25_t8jbu")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1eq8k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_67gi7"]
@@ -592,6 +599,8 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_fshpd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3y7tg"]
 bg_color = Color(0.913725, 0.592157, 1, 1)
@@ -787,18 +796,37 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2ind"]
-bg_color = Color(0.207843, 0.113725, 0.364706, 1)
+bg_color = Color(0.101961, 0.101961, 0.180392, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_o2ind"]
 font = ExtResource("23_ysajr")
-font_size = 25
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_4sd3f"]
+font = ExtResource("17_nalsi")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_t4vir"]
+font = ExtResource("17_nalsi")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_dsied"]
+font = ExtResource("17_nalsi")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1ktl"]
+font = ExtResource("17_nalsi")
+font_size = 32
 
 [node name="Main" type="Node2D" node_paths=PackedStringArray("tilemap_node")]
 script = ExtResource("1_qa7b8")
 enemy_scenes = Array[PackedScene]([ExtResource("2_t4vir")])
+enemy_spawn_interval = 0.8
+base_enemies_per_wave = 20
 max_waves = 3
-tower_scenes = Array[PackedScene]([ExtResource("4_f1ktl"), ExtResource("5_76fgo"), ExtResource("6_fshpd")])
-tower_costs = Array[int]([25, 50, 100])
+tower_scenes = Array[PackedScene]([ExtResource("4_f1ktl"), ExtResource("5_76fgo"), ExtResource("6_fshpd"), ExtResource("6_4sd3f"), ExtResource("7_f1ktl")])
+tower_names = Array[String](["Basic Tower", "Cannon Tower", "Ice Tower", "Arc Tower", "Laser Tower"])
+tower_costs = Array[int]([25, 50, 100, 80, 200])
 tilemap_node = NodePath("TileMap")
 background_music = ExtResource("7_8y57m")
 
@@ -840,6 +868,7 @@ layer_1/tile_data = PackedInt32Array(131075, 524288, 0, 131076, 524288, 0, 13107
 layer_2/name = "Layer2"
 layer_2/tile_data = PackedInt32Array(196611, 655360, 1342177283, 196613, 655360, 1342177283, 196612, 655360, 1342177283, 196614, 327680, 1342177283, 262150, 655360, 805306371, 65539, 655360, 1610612739, 65540, 655360, 1610612739, 65541, 655360, 1610612739, 65542, 655360, 1610612739, 65543, 655360, 1610612739, 131080, 655360, 3, 196616, 327680, 1610612739, 196617, 393216, 1610612741, 131081, 720896, 4, 327687, 720896, 1610612740, 327688, 720896, 1610612740, 327689, 720896, 1610612740, 327690, 720896, 1610612740, 262155, 720896, 805306372, 196619, 524288, 1610612739, 196620, 524288, 1610612740, 131086, 524288, 1342177284, 65549, 720896, 1342177283, 131087, 720896, 1342177283, 131088, 720896, 1342177283, 262157, 720896, 1610612739, 262158, 720896, 1610612739, 262159, 720896, 1610612739, 262160, 720896, 1610612739, 65548, 720896, 1342177283, 65547, 720896, 1342177283, 65546, 720896, 1342177283)
 layer_3/name = "Layer3"
+layer_3/tile_data = PackedInt32Array(131081, 655360, 805306372, 196617, 524288, 1342177283)
 
 [node name="EnemyPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_1icmw")
@@ -994,7 +1023,7 @@ size_flags_vertical = 3
 theme_override_constants/separation = 15
 
 [node name="TowerCard1" type="Panel" parent="UICanvas/UITower/MainContainer/TowerList"]
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 mouse_filter = 2
 mouse_default_cursor_shape = 2
@@ -1096,8 +1125,13 @@ layout_mode = 2
 text = "ATTACK SPEED : 3"
 label_settings = SubResource("LabelSettings_lks6q")
 
+[node name="Label" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard1/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Effect : Normal projectile"
+label_settings = SubResource("LabelSettings_76fgo")
+
 [node name="TowerCard3" type="Panel" parent="UICanvas/UITower/MainContainer/TowerList"]
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 mouse_filter = 2
 mouse_default_cursor_shape = 2
@@ -1198,8 +1232,13 @@ layout_mode = 2
 text = "ATTACK SPEED : 10"
 label_settings = SubResource("LabelSettings_lks6q")
 
+[node name="Label" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard3/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Effect : Faster Attack Speed"
+label_settings = SubResource("LabelSettings_fshpd")
+
 [node name="TowerCard2" type="Panel" parent="UICanvas/UITower/MainContainer/TowerList"]
-custom_minimum_size = Vector2(0, 90)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 mouse_filter = 2
 mouse_default_cursor_shape = 2
@@ -1277,7 +1316,7 @@ expand_mode = 3
 
 [node name="TowerPrice" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer/HBoxContainer2"]
 layout_mode = 2
-text = "$50"
+text = "50"
 label_settings = SubResource("LabelSettings_q47ii")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer"]
@@ -1298,6 +1337,220 @@ label_settings = SubResource("LabelSettings_6mh1q")
 layout_mode = 2
 text = "ATTACK SPEED : 1"
 label_settings = SubResource("LabelSettings_lks6q")
+
+[node name="Label" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard2/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Effect : High Damage Laser"
+
+[node name="TowerCard4" type="Panel" parent="UICanvas/UITower/MainContainer/TowerList"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6nk7")
+
+[node name="Tower4Button" type="Button" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1eq8k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_67gi7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ebxai")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ebxai")
+theme_override_styles/normal = SubResource("StyleBoxFlat_67gi7")
+
+[node name="CardContent" type="HBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="IconContainer" type="Panel" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3y7tg")
+
+[node name="TowerIcon1" type="TextureRect" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/IconContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = 10.0
+offset_right = 11.75
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("28_t4vir")
+expand_mode = 3
+stretch_mode = 5
+flip_v = true
+
+[node name="InfoContainer" type="VBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TowerName" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Arc Tower"
+label_settings = SubResource("LabelSettings_8eoto")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("16_pgs8i")
+expand_mode = 3
+
+[node name="TowerPrice" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer/HBoxContainer2"]
+layout_mode = 2
+text = "80"
+label_settings = SubResource("LabelSettings_q47ii")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DamageInfo" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "DMG: 75"
+label_settings = SubResource("LabelSettings_bqvau")
+
+[node name="RangeInfo" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "RANGE:300"
+label_settings = SubResource("LabelSettings_6mh1q")
+
+[node name="SpeedInfo" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "ATTACK SPEED : 1"
+label_settings = SubResource("LabelSettings_lks6q")
+
+[node name="Label" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard4/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Effect : Laser Bounce On hit"
+
+[node name="TowerCard5" type="Panel" parent="UICanvas/UITower/MainContainer/TowerList"]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s6nk7")
+
+[node name="Tower5Button" type="Button" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1eq8k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_67gi7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ebxai")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ebxai")
+theme_override_styles/normal = SubResource("StyleBoxFlat_67gi7")
+
+[node name="CardContent" type="HBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 15
+
+[node name="IconContainer" type="Panel" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3y7tg")
+
+[node name="TowerIcon1" type="TextureRect" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/IconContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = 10.0
+offset_right = 11.75
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("30_76fgo")
+expand_mode = 3
+stretch_mode = 5
+flip_v = true
+
+[node name="InfoContainer" type="VBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="TowerName" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Laser Tower"
+label_settings = SubResource("LabelSettings_8eoto")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("16_pgs8i")
+expand_mode = 3
+
+[node name="TowerPrice" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer/HBoxContainer2"]
+layout_mode = 2
+text = "80"
+label_settings = SubResource("LabelSettings_q47ii")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DamageInfo" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "DMG: 75"
+label_settings = SubResource("LabelSettings_bqvau")
+
+[node name="RangeInfo" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "RANGE:300"
+label_settings = SubResource("LabelSettings_6mh1q")
+
+[node name="SpeedInfo" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "ATTACK SPEED : 1"
+label_settings = SubResource("LabelSettings_lks6q")
+
+[node name="Label" type="Label" parent="UICanvas/UITower/MainContainer/TowerList/TowerCard5/CardContent/InfoContainer"]
+layout_mode = 2
+text = "Continously firing laser"
 
 [node name="Cancel Button" type="Button" parent="UICanvas/UITower/MainContainer"]
 layout_mode = 2
@@ -1463,66 +1716,93 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_uo3qy")
 text = "EXIT"
 
 [node name="SelectedTowerUI" type="CanvasLayer" parent="."]
-offset = Vector2(1.895, 0)
-transform = Transform2D(1, 0, 0, 1, 1.895, 0)
+visible = false
+offset = Vector2(850, 0)
+transform = Transform2D(1, 0, 0, 1, 850, 0)
 
-[node name="Background" type="Panel" parent="SelectedTowerUI"]
+[node name="Control" type="Control" parent="SelectedTowerUI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Background" type="Panel" parent="SelectedTowerUI/Control"]
+layout_mode = 0
 offset_left = -9.0
 offset_top = 1.0
 offset_right = 432.0
 offset_bottom = 723.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_o2ind")
 
-[node name="Polygon2D" type="Polygon2D" parent="SelectedTowerUI"]
+[node name="Polygon2D" type="Polygon2D" parent="SelectedTowerUI/Control"]
 position = Vector2(41.4683, -2.66776)
 scale = Vector2(2.01951, 0.703947)
-color = Color(0.196078, 0.0431373, 0.196078, 1)
+color = Color(0.148405, 0.202416, 0.438906, 1)
 antialiased = true
 polygon = PackedVector2Array(116, 4.5, -24, 5.5, -23, 80.5, 136.753, 80.5394)
 uv = PackedVector2Array(116, 4.5, -24, 5.5, -23, 80.5, 181, 80.5)
 
-[node name="TowerNameLabel" type="Label" parent="SelectedTowerUI"]
-offset_left = 2.0
-offset_top = 55.0
-offset_right = 115.0
-offset_bottom = 102.0
-text = "Tower Name : "
+[node name="TowerNameLabel" type="Label" parent="SelectedTowerUI/Control"]
+layout_mode = 0
+offset_left = 1.105
+offset_top = 12.0
+offset_right = 236.105
+offset_bottom = 44.0
+label_settings = SubResource("LabelSettings_o2ind")
 
-[node name="DamageLabel" type="Label" parent="SelectedTowerUI"]
+[node name="DamageLabel" type="Label" parent="SelectedTowerUI/Control"]
+layout_mode = 0
 offset_left = 9.105
 offset_top = 173.0
 offset_right = 220.105
 offset_bottom = 213.0
 text = "Damage : "
+label_settings = SubResource("LabelSettings_4sd3f")
 
-[node name="AttackSpeedLabel" type="Label" parent="SelectedTowerUI"]
+[node name="AttackSpeedLabel" type="Label" parent="SelectedTowerUI/Control"]
+layout_mode = 0
 offset_left = 8.105
 offset_top = 211.0
-offset_right = 164.105
+offset_right = 174.105
 offset_bottom = 243.0
 text = "Fire Rate : "
+label_settings = SubResource("LabelSettings_t4vir")
 
-[node name="RangeLabel" type="Label" parent="SelectedTowerUI"]
+[node name="RangeLabel" type="Label" parent="SelectedTowerUI/Control"]
+layout_mode = 0
 offset_left = 9.0
 offset_top = 138.0
 offset_right = 206.0
 offset_bottom = 186.0
 text = "Range :"
+label_settings = SubResource("LabelSettings_dsied")
 
-[node name="Button" type="Button" parent="SelectedTowerUI"]
+[node name="Button" type="Button" parent="SelectedTowerUI/Control"]
+layout_mode = 0
 offset_left = 105.0
 offset_top = 637.0
 offset_right = 282.0
 offset_bottom = 695.0
 text = "CLOSE"
 
-[node name="Title" type="Label" parent="SelectedTowerUI"]
-offset_left = 1.0
-offset_top = 14.0
-offset_right = 264.0
-offset_bottom = 39.0
-text = "TowerStats"
-label_settings = SubResource("LabelSettings_o2ind")
+[node name="Label" type="Label" parent="SelectedTowerUI/Control"]
+layout_mode = 0
+offset_left = 15.105
+offset_top = 79.0
+offset_right = 139.105
+offset_bottom = 111.0
+text = "Statistic"
+label_settings = SubResource("LabelSettings_f1ktl")
+
+[node name="SellTowerButton" type="Button" parent="SelectedTowerUI/Control"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 535.0
+offset_right = 298.0
+offset_bottom = 596.0
+text = "SELL TOWER
+(70% Value)"
 
 [connection signal="pressed" from="CanvasLayer/UI/PausedButton" to="." method="_on_paused_button_pressed"]
 [connection signal="pressed" from="UICanvas/UITower/MainContainer/TowerList/TowerCard1/Tower1Button" to="." method="_on_tower_1_button_pressed"]
+[connection signal="pressed" from="SelectedTowerUI/Control/Button" to="." method="_on_selectedUI_close_button_pressed"]

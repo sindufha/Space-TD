@@ -1,15 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://bbmkg8mjs34hi"]
+[gd_scene load_steps=18 format=3 uid="uid://bbmkg8mjs34hi"]
 
 [ext_resource type="FontFile" uid="uid://csgwfgj8ogqqi" path="res://asset/fonts/JosefinSans-Bold.ttf" id="1_0bmyu"]
 [ext_resource type="Script" uid="uid://06bsmc08jyu2" path="res://level_select.gd" id="1_nb57j"]
+[ext_resource type="FontFile" uid="uid://dydt5cawqnrae" path="res://asset/fonts/8-BIT WONDER.TTF" id="2_gyrbw"]
 [ext_resource type="FontFile" uid="uid://q30ectdbwpp8" path="res://asset/fonts/JosefinSans-Regular.ttf" id="2_nb57j"]
-[ext_resource type="Texture2D" uid="uid://bd881we33d074" path="res://asset/ui/Active.png" id="3_gyrbw"]
 [ext_resource type="Texture2D" uid="uid://7hetmrurhw7d" path="res://asset/ui/Unactive.png" id="4_tvwvf"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_cgbbg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sf6f5"]
-font = ExtResource("1_0bmyu")
+font = ExtResource("2_gyrbw")
 font_size = 48
 font_color = Color(0, 1, 1, 1)
 shadow_color = Color(0, 0, 0, 1)
@@ -54,11 +54,8 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_w5tpn"]
+font = ExtResource("1_0bmyu")
 font_size = 32
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sf6f5"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ardn0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3t17"]
 
@@ -68,10 +65,10 @@ font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nb57j"]
 bg_color = Color(0.290196, 0.164706, 0.164706, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 border_color = Color(1, 0.266667, 0.266667, 1)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -145,7 +142,7 @@ theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 5
 
-[node name="level1button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="LevelButton1" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
@@ -157,7 +154,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
 
-[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button"]
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,161 +162,565 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent"]
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1/ButtonContent"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/NumberContainer"]
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1/ButtonContent/NumberContainer"]
 layout_mode = 2
 text = "1"
 label_settings = SubResource("LabelSettings_w5tpn")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1/ButtonContent"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 22
 alignment = 1
 
-[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/StarsContainer"]
-self_modulate = Color(1, 0.843137, 0, 1)
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-texture = ExtResource("3_gyrbw")
-expand_mode = 3
-stretch_mode = 3
-
-[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/StarsContainer"]
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1/ButtonContent/StarsContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 texture = ExtResource("4_tvwvf")
 expand_mode = 3
 stretch_mode = 3
 
-[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button/ButtonContent/StarsContainer"]
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1/ButtonContent/StarsContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 texture = ExtResource("4_tvwvf")
 expand_mode = 3
 stretch_mode = 3
 
-[node name="level2button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton2" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_sf6f5")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "2"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level3button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton3" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "3"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level4button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton4" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "4"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level5button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton5" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "5"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level6button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton6" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "6"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level7button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton7" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "7"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level8button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton8" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "8"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level9button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton9" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "9"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="level10button" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="LevelButton10" type="Button" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid"]
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 0, 1)
 theme_override_fonts/font = ExtResource("2_nb57j")
 theme_override_font_sizes/font_size = 36
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ardn0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cgbbg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ardn0")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q3t17")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bmyu")
+
+[node name="ButtonContent" type="VBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NumberContainer" type="CenterContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10/ButtonContent/NumberContainer"]
+layout_mode = 2
 text = "10"
+label_settings = SubResource("LabelSettings_w5tpn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StarsContainer" type="HBoxContainer" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10/ButtonContent"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Star1" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star2" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Star3" type="TextureRect" parent="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10/ButtonContent/StarsContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_tvwvf")
+expand_mode = 3
+stretch_mode = 3
 
 [node name="BottomContainer" type="HBoxContainer" parent="UIContainer/MainVBox"]
 custom_minimum_size = Vector2(0, 80)
@@ -333,8 +734,8 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_colors/font_hover_pressed_color = Color(1, 0.266667, 0.266667, 1)
-theme_override_fonts/font = ExtResource("2_nb57j")
-theme_override_font_sizes/font_size = 24
+theme_override_fonts/font = ExtResource("1_0bmyu")
+theme_override_font_sizes/font_size = 28
 theme_override_styles/focus = SubResource("StyleBoxEmpty_q3t17")
 theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_0bmyu")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_nb57j")
@@ -347,5 +748,14 @@ text = "← BACK"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/level1button" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton1" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton2" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton3" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton4" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton5" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton6" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton7" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton8" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton9" to="." method="_on_level_1_button_pressed"]
+[connection signal="pressed" from="UIContainer/MainVBox/GridCenterContainer/LevelGrid/LevelButton10" to="." method="_on_level_1_button_pressed"]
 [connection signal="pressed" from="UIContainer/MainVBox/BottomContainer/BackButton" to="." method="_on_back_button_pressed"]

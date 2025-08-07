@@ -54,7 +54,7 @@ var show_grid_border: bool = false
 var bgm_player: AudioStreamPlayer
 var total_spawn_weight: float = 0.0
 @onready var resume_btn: Button = $PausedUI/Panel/VBoxContainer/ResumeBtn
-
+@onready var exit_btn: Button = $PausedUI/Panel/VBoxContainer/ExitBtn
 # Variabel untuk tower preview
 var tower_preview_sprite: Sprite2D
 var current_preview_tower_index: int = -1
@@ -62,6 +62,7 @@ var preview_range_radius: float = 0.0
 
 # Menyimpan posisi awal UITower
 var ui_tower_original_position: Vector2
+
 
 func _ready():
 	setup_spawner()
@@ -73,10 +74,11 @@ func _ready():
 	setup_tower_preview()
 	update_ui()
 	start_first_wave()
-	
+	exit_btn.pressed.connect(_on_exit_button_pressed)
 	resume_btn.pressed.connect(_on_resume_pressed)
 	paused_ui.visible = false
 	$PausedUI.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+
 
 func setup_tower_preview():
 	tower_preview_sprite = Sprite2D.new()
@@ -89,7 +91,11 @@ func setup_tower_preview():
 func _on_resume_pressed():
 	$PausedUI.visible = false
 	get_tree().paused=false
-
+	print("button dipencet")
+	
+func _on_exit_button_pressed():
+	get_tree().change_scene_to_file("res://MainMenu.tscn")
+	print("button dipencet")
 func setup_ui_tower():
 	if ui_tower:
 		ui_tower.visible = false
@@ -568,6 +574,7 @@ func _draw():
 		var range_color = Color(0.0, 0.2, 0.2, 0.3)  # Hijau transparan
 		draw_circle(world_pos, preview_range_radius, range_color)
 		
+
 
 func _on_paused_button_pressed() -> void:
 	paused_ui.visible=true

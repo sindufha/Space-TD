@@ -1,9 +1,9 @@
 extends StaticBody2D
 class_name Tower
 
-@export var damage = 5
+@export var damage:int = 5
 @export var fire_rate = 1
-@export var range_radius = 100
+@export var range_radius:int = 100
 @export var rotation_speed = 180.0  # Degrees per second
 @export var projectile_speed = 600.0  # Kurangi dari 800 ke 600
 
@@ -20,6 +20,11 @@ var is_rotating = false
 
 # Audio player
 var shoot_player: AudioStreamPlayer2D
+
+# IMPROVED: Tracking system untuk partikel dari tower ini
+var owned_particles: Array[Node] = []  # Array untuk track partikel milik tower ini
+var owned_tweens: Array[Tween] = []    # Array untuk track tween milik tower ini
+var is_being_destroyed = false         # Flag untuk mencegah operasi baru
 
 func _ready():
 	setup_tower()
@@ -45,7 +50,43 @@ func setup_tower():
 	if range_shape:
 		range_shape.radius = range_radius
 
+# IMPROVED: Cleanup function yang lebih agresif
+func cleanup_effects():
+	is_being_destroyed = true
+	
+	# Hapus SEMUA partikel milik tower ini SEKARANG JUGA
+	var particles_to_remove = owned_particles.duplicate()
+	for particle in particles_to_remove:
+		if is_instance_valid(particle):
+			# Langsung hapus dari scene tree
+			if particle.get_parent():
+				particle.get_parent().remove_child(particle)
+			particle.queue_free()
+	owned_particles.clear()
+	
+	# Kill SEMUA tween milik tower ini
+	var tweens_to_kill = owned_tweens.duplicate()
+	for tween in tweens_to_kill:
+		if is_instance_valid(tween) and tween.is_valid():
+			tween.kill()
+	owned_tweens.clear()
+	
+	# Stop audio
+	if is_instance_valid(shoot_player):
+		shoot_player.stop()
+	
+	# Stop timer
+	if is_instance_valid(shoot_timer):
+		shoot_timer.stop()
+	
+	# Clear semua references
+	enemies_in_range.clear()
+	current_target = null
+
 func _process(delta):
+	if is_being_destroyed:
+		return
+		
 	update_target()
 	update_rotation(delta)
 	
@@ -85,7 +126,7 @@ func set_target(new_target: Enemy):
 		is_rotating = true
 
 func update_rotation(delta):
-	if not current_target:
+	if not current_target or is_being_destroyed:
 		return
 	
 	# Update target rotation berdasarkan posisi enemy yang bergerak
@@ -114,6 +155,9 @@ func is_target_in_sight() -> bool:
 	return angle_diff < deg_to_rad(15)  # Toleransi 15 derajat
 
 func shoot():
+	if is_being_destroyed:
+		return
+		
 	if current_target and is_instance_valid(current_target):
 		create_projectile()
 		create_simple_muzzle_flash()
@@ -123,14 +167,15 @@ func shoot():
 
 func play_shoot_sound():
 	# Play random shoot sound jika ada
-	if shoot_player and shoot_sounds.size() > 0:
+	if is_instance_valid(shoot_player) and shoot_sounds.size() > 0 and not is_being_destroyed:
 		var random_sound = shoot_sounds[randi() % shoot_sounds.size()]
 		shoot_player.stream = random_sound
-		
-		# Variasi pitch sedikit untuk lebih natural
 		shoot_player.play()
 
 func create_projectile():
+	if is_being_destroyed:
+		return
+		
 	# Hitung posisi dan arah tembakan
 	var muzzle_offset = Vector2(35, 0).rotated(rotation)
 	var start_pos = global_position + muzzle_offset
@@ -139,8 +184,14 @@ func create_projectile():
 	
 	# Buat projectile (bola kecil)
 	var projectile = create_projectile_ball()
+	if not projectile:
+		return
+		
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_position = start_pos
+	
+	# CRITICAL: Tambahkan ke owned_particles supaya bisa dihapus nanti
+	owned_particles.append(projectile)
 	
 	# Hitung waktu untuk mencapai target
 	var distance = start_pos.distance_to(target_pos)
@@ -148,12 +199,20 @@ func create_projectile():
 	
 	# Animasi projectile terbang ke target
 	var tween = create_tween()
+	owned_tweens.append(tween)  # Track tween ini
+	
 	tween.tween_property(projectile, "global_position", target_pos, travel_time)
 	
-	# Hancurkan projectile saat sampai dan berikan damage
-	tween.tween_callback(func(): hit_target(projectile, target_pos))
+	# Callback untuk hit target
+	tween.tween_callback(func(): 
+		if is_instance_valid(projectile) and not is_being_destroyed:
+			hit_target(projectile, target_pos)
+	)
 
 func create_projectile_ball() -> Node2D:
+	if is_being_destroyed:
+		return null
+		
 	# Buat container untuk projectile
 	var projectile = Node2D.new()
 	
@@ -174,9 +233,12 @@ func create_projectile_ball() -> Node2D:
 	trail.end_cap_mode = Line2D.LINE_CAP_ROUND
 	projectile.add_child(trail)
 	
-	# Animasi glow yang berkedip
+	# Animasi glow dengan tween yang ditrack
 	var glow_tween = create_tween()
-	glow_tween.set_loops()
+	owned_tweens.append(glow_tween)  # Track tween ini juga
+	
+	glow_tween.tween_property(glow, "modulate:a", 0.4, 0.12)
+	glow_tween.tween_property(glow, "modulate:a", 0.9, 0.12)
 	glow_tween.tween_property(glow, "modulate:a", 0.4, 0.12)
 	glow_tween.tween_property(glow, "modulate:a", 0.9, 0.12)
 	
@@ -199,17 +261,25 @@ func create_circle_shape(pos: Vector2, radius: float, color: Color) -> Node2D:
 	return circle
 
 func hit_target(projectile: Node2D, hit_pos: Vector2):
+	# Remove dari tracking
+	owned_particles.erase(projectile)
+	
 	# Berikan damage ke target jika masih valid
-	if current_target and is_instance_valid(current_target):
+	if is_instance_valid(current_target) and not is_being_destroyed:
 		current_target.take_damage(damage)
 	
-	# Buat particle explosion effect yang keren
-	create_particle_explosion(hit_pos)
+	# Buat particle explosion effect
+	if not is_being_destroyed:
+		create_particle_explosion(hit_pos)
 	
 	# Hapus projectile
-	projectile.queue_free()
+	if is_instance_valid(projectile):
+		projectile.queue_free()
 
 func create_particle_explosion(pos: Vector2):
+	if is_being_destroyed:
+		return
+	
 	# Buat banyak partikel dengan berbagai warna dan ukuran
 	var particle_colors = [
 		Color(1.0, 0.3, 0.1),    # Orange terang
@@ -226,11 +296,20 @@ func create_particle_explosion(pos: Vector2):
 	get_tree().current_scene.add_child(main_flash)
 	main_flash.global_position = pos
 	
+	# CRITICAL: Track main flash supaya bisa dihapus
+	owned_particles.append(main_flash)
+	
 	var flash_tween = create_tween()
+	owned_tweens.append(flash_tween)  # Track tween
+	
 	flash_tween.set_parallel(true)
 	flash_tween.tween_property(main_flash, "scale", Vector2(3.5, 3.5), 0.18)
 	flash_tween.tween_property(main_flash, "modulate:a", 0.0, 0.18)
-	flash_tween.tween_callback(main_flash.queue_free).set_delay(0.18)
+	flash_tween.tween_callback(func(): 
+		if is_instance_valid(main_flash):
+			owned_particles.erase(main_flash)  # Remove dari tracking
+			main_flash.queue_free()
+	).set_delay(0.18)
 	
 	# Buat 15 partikel yang beterbangan
 	for i in range(15):
@@ -244,12 +323,18 @@ func create_particle_explosion(pos: Vector2):
 	create_shockwave_ring(pos)
 
 func create_explosion_particle(pos: Vector2, colors: Array):
+	if is_being_destroyed:
+		return
+	
 	var random_color = colors[randi() % colors.size()]
 	var particle_size = randf_range(3, 7)
 	var particle = create_circle_shape(Vector2.ZERO, particle_size, random_color)
 	
 	get_tree().current_scene.add_child(particle)
 	particle.global_position = pos
+	
+	# CRITICAL: Track partikel ini supaya bisa dihapus
+	owned_particles.append(particle)
 	
 	# Random direction dan distance
 	var angle = randf() * 2 * PI
@@ -261,30 +346,41 @@ func create_explosion_particle(pos: Vector2, colors: Array):
 	var duration = randf_range(0.3, 0.6)
 	
 	var particle_tween = create_tween()
+	owned_tweens.append(particle_tween)  # Track tween
+	
 	particle_tween.set_parallel(true)
 	
-	# Movement dengan gravity effect - FIXED: gunakan callable yang benar
+	# Movement dengan gravity effect
 	var mid_pos = pos + direction * distance * 0.7 + Vector2(0, -randf_range(10, 25))
-	particle_tween.tween_method(bezier_move_particle.bind(particle, pos, mid_pos, end_pos), 0.0, 1.0, duration)
 	
-	# Fade out
+	var bezier_callable = func(t: float):
+		if is_instance_valid(particle) and not is_being_destroyed:
+			bezier_move_particle(particle, pos, mid_pos, end_pos, t)
+	
+	particle_tween.tween_method(bezier_callable, 0.0, 1.0, duration)
 	particle_tween.tween_property(particle, "modulate:a", 0.0, duration)
-	
-	# Scale down
 	particle_tween.tween_property(particle, "scale", Vector2(0.2, 0.2), duration)
-	
-	# Rotation
 	particle_tween.tween_property(particle, "rotation", randf_range(-4, 4), duration)
 	
-	particle_tween.tween_callback(particle.queue_free).set_delay(duration)
+	particle_tween.tween_callback(func(): 
+		if is_instance_valid(particle):
+			owned_particles.erase(particle)  # Remove dari tracking
+			particle.queue_free()
+	).set_delay(duration)
 
 func create_small_particle(pos: Vector2, colors: Array):
+	if is_being_destroyed:
+		return
+		
 	var random_color = colors[randi() % colors.size()]
 	random_color.a = 0.8
 	var particle = create_circle_shape(Vector2.ZERO, randf_range(1.5, 3), random_color)
 	
 	get_tree().current_scene.add_child(particle)
 	particle.global_position = pos
+	
+	# CRITICAL: Track partikel ini
+	owned_particles.append(particle)
 	
 	# Gerak yang lebih cepat dan pendek
 	var angle = randf() * 2 * PI
@@ -295,17 +391,29 @@ func create_small_particle(pos: Vector2, colors: Array):
 	var duration = randf_range(0.2, 0.4)
 	
 	var small_tween = create_tween()
+	owned_tweens.append(small_tween)  # Track tween
+	
 	small_tween.set_parallel(true)
 	small_tween.tween_property(particle, "global_position", end_pos, duration)
 	small_tween.tween_property(particle, "modulate:a", 0.0, duration)
 	small_tween.tween_property(particle, "scale", Vector2(0.1, 0.1), duration)
-	small_tween.tween_callback(particle.queue_free).set_delay(duration)
+	small_tween.tween_callback(func(): 
+		if is_instance_valid(particle):
+			owned_particles.erase(particle)  # Remove dari tracking
+			particle.queue_free()
+	).set_delay(duration)
 
 func create_shockwave_ring(pos: Vector2):
+	if is_being_destroyed:
+		return
+		
 	# Buat ring shockwave
 	var ring = Node2D.new()
 	get_tree().current_scene.add_child(ring)
 	ring.global_position = pos
+	
+	# CRITICAL: Track ring
+	owned_particles.append(ring)
 	
 	# Buat outline ring
 	var line = Line2D.new()
@@ -325,19 +433,30 @@ func create_shockwave_ring(pos: Vector2):
 	
 	# Animasi ring mengembang
 	var ring_tween = create_tween()
+	owned_tweens.append(ring_tween)  # Track tween
+	
 	ring_tween.set_parallel(true)
 	ring_tween.tween_property(ring, "scale", Vector2(4.0, 4.0), 0.25)
 	ring_tween.tween_property(line, "modulate:a", 0.0, 0.25)
 	ring_tween.tween_property(line, "width", 1.0, 0.25)
-	ring_tween.tween_callback(ring.queue_free).set_delay(0.25)
+	ring_tween.tween_callback(func(): 
+		if is_instance_valid(ring):
+			owned_particles.erase(ring)  # Remove dari tracking
+			ring.queue_free()
+	).set_delay(0.25)
 
-# FIXED: Buat fungsi terpisah untuk bezier movement
 func bezier_move_particle(particle: Node2D, start: Vector2, control: Vector2, end: Vector2, t: float):
+	if not is_instance_valid(particle) or is_being_destroyed:
+		return
+		
 	# Bezier curve movement untuk efek parabola yang natural
 	var pos = start.lerp(control, t).lerp(control.lerp(end, t), t)
 	particle.global_position = pos
 
 func create_simple_muzzle_flash():
+	if is_being_destroyed:
+		return
+		
 	# Flash sederhana di muzzle dengan warna cyan
 	var muzzle_offset = Vector2(35, 0).rotated(rotation)
 	var muzzle_pos = global_position + muzzle_offset
@@ -346,24 +465,34 @@ func create_simple_muzzle_flash():
 	get_tree().current_scene.add_child(flash)
 	flash.global_position = muzzle_pos
 	
+	# CRITICAL: Track flash
+	owned_particles.append(flash)
+	
 	var tween = create_tween()
+	owned_tweens.append(tween)  # Track tween
+	
 	tween.set_parallel(true)
 	tween.tween_property(flash, "scale", Vector2(2.5, 2.5), 0.12)
 	tween.tween_property(flash, "modulate:a", 0.0, 0.12)
-	tween.tween_callback(flash.queue_free).set_delay(0.12)
+	tween.tween_callback(func(): 
+		if is_instance_valid(flash):
+			owned_particles.erase(flash)  # Remove dari tracking
+			flash.queue_free()
+	).set_delay(0.12)
 
 func reset_shooting():
-	can_shoot = true
+	if not is_being_destroyed:
+		can_shoot = true
 
 func _on_enemy_entered(body):
-	if body is Enemy:
+	if body is Enemy and not is_being_destroyed:
 		enemies_in_range.append(body)
 		# Jika belum ada target, set sebagai target
 		if not current_target:
 			set_target(body)
 
 func _on_enemy_exited(body):
-	if body is Enemy:
+	if body is Enemy and not is_being_destroyed:
 		enemies_in_range.erase(body)
 		# Jika target keluar range, cari target baru
 		if current_target == body:
@@ -373,3 +502,7 @@ func _on_enemy_exited(body):
 func set_grid_position(grid_pos: Vector2i):
 	grid_position = grid_pos
 	global_position = GridManager.grid_to_world(grid_pos)
+
+# Override _exit_tree untuk cleanup otomatis
+func _exit_tree():
+	cleanup_effects()
